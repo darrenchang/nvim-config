@@ -7,6 +7,13 @@ return {
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.formatting.black,
+          null_ls.builtins.formatting.isort,
+          null_ls.builtins.formatting.cbfmt,
+          -- null_ls.builtins.diagnostics.selene,
+          null_ls.builtins.diagnostics.ruff,
+          null_ls.builtins.diagnostics.eslint_d,
         },
       })
       vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
@@ -21,7 +28,7 @@ return {
     },
     config = function()
       require("mason-null-ls").setup({
-        ensure_installed = { "stylua", "cbfmt", "black" },
+        ensure_installed = { "stylua", "selene", "cbfmt", "black", "isort", "ruff", "prettier", "eslint_d" },
       })
     end,
   },
