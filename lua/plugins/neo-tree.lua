@@ -11,6 +11,11 @@ return {
     },
     config = function()
       vim.keymap.set("n", "<leader>e", ":Neotree filesystem reveal left<CR>", {})
+      require("neo-tree").setup({
+        filesystem = {
+          use_libuv_file_watcher = true,
+        },
+      })
     end,
   },
 }
