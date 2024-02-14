@@ -13,6 +13,7 @@ return {
       vim.keymap.set("n", "<leader>e", ":Neotree filesystem reveal left<CR>", {})
       require("neo-tree").setup({
         filesystem = {
+          enable_refresh_on_write = true,
           use_libuv_file_watcher = true,
           follow_current_file = {
             enabled = true,
