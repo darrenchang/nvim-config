@@ -14,12 +14,10 @@ return {
       require("neo-tree").setup({
         filesystem = {
           enable_refresh_on_write = true,
-          use_libuv_file_watcher = true,
           follow_current_file = {
             enabled = true,
-            leave_dirs_open = false,
+            leave_dirs_open = true,
           },
-
         },
       })
     end,
