@@ -18,9 +18,13 @@ return {
 						},
 					},
 					diagnostics = "nvim_lsp",
-					diagnostics_indicator = function(count, level)
-						local icon = level:match("error") and " " or " "
-						return " " .. icon .. count
+					diagnostics_indicator = function(_, _, diagnostics_dict)
+						local s = ""
+						for e, n in pairs(diagnostics_dict) do
+							local sym = e == "error" and " " or (e == "warning" and " " or "")
+							s = sym .. n .. "|" .. s
+						end
+						return s
 					end,
 				},
 			})
