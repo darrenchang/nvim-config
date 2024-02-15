@@ -2,12 +2,16 @@ return {
 	{
 		-- https://github.com/akinsho/bufferline.nvim
 		"akinsho/bufferline.nvim",
-		dependencies = "nvim-tree/nvim-web-devicons",
+		dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "famiu/bufdelete.nvim",
+    },
 		config = function()
 			local bufferline = require("bufferline")
 			bufferline.setup({
 				options = {
 					mode = "buffers",
+          close_command = require('bufdelete').bufdelete, -- Prevent buffer window from being closed https://github.com/LunarVim/LunarVim/issues/2455#issuecomment-1867969796
 					separator_style = "slant",
 					offsets = {
 						{
@@ -29,6 +33,7 @@ return {
 						end
 						return s
 					end,
+					always_show_bufferline = true,
 				},
 			})
 		end,
