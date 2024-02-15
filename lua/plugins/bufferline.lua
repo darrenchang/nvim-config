@@ -8,10 +8,11 @@ return {
     },
 		config = function()
 			local bufferline = require("bufferline")
+      local bufdelete = require("bufdelete")
 			bufferline.setup({
 				options = {
 					mode = "buffers",
-          close_command = require('bufdelete').bufdelete, -- Prevent buffer window from being closed https://github.com/LunarVim/LunarVim/issues/2455#issuecomment-1867969796
+          close_command = bufdelete.bufdelete, -- Prevent buffer window from being closed https://github.com/LunarVim/LunarVim/issues/2455#issuecomment-1867969796
 					separator_style = "slant",
 					offsets = {
 						{
