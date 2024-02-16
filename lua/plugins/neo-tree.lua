@@ -19,13 +19,14 @@ return {
             leave_dirs_open = true,
           },
         },
-        sources = { "filesystem", "git_status" },
+        sources = { "filesystem", "git_status", "buffers" },
         source_selector = {
           winbar = true,
           content_layout = "center",
           sources = {
             { source = "filesystem", display_name = "File" },
             { source = "git_status", display_name = "Git" },
+            { source = "buffers", display_name = "Bufs" },
           },
         },
       })
