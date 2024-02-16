@@ -15,7 +15,7 @@ return {
     config = function()
       local gitsignsconfig = require("gitsigns")
       gitsignsconfig.setup({
-        word_diff = true,
+        word_diff = false,
         current_line_blame = true,
         current_line_blame_opts = {
           virt_text = true,
