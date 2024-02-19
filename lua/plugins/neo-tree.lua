@@ -17,6 +17,7 @@ return {
           follow_current_file = {
             enabled = true,
             leave_dirs_open = true,
+            hijack_netrw_behavior = "open_current",
           },
         },
         sources = { "filesystem", "git_status", "buffers" },
@@ -24,9 +25,17 @@ return {
           winbar = true,
           content_layout = "center",
           sources = {
-            { source = "filesystem", display_name = "File" },
-            { source = "git_status", display_name = "Git" },
-            { source = "buffers", display_name = "Bufs" },
+            { source = "filesystem", display_name = " File" },
+            { source = "git_status", display_name = "󰊢 Git" },
+            { source = "buffers", display_name = " Bufs" },
+          },
+        },
+        event_handlers = {
+          {
+            event = "neo_tree_buffer_leave",
+            handler = function()
+              vim.opt_local.signcolumn = "auto:9"
+            end,
           },
         },
       })
