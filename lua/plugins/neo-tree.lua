@@ -32,6 +32,12 @@ return {
         },
         event_handlers = {
           {
+            event = "neo_tree_buffer_enter",
+            handler = function()
+              vim.opt_local.statuscolumn = ""
+            end,
+          },
+          {
             event = "neo_tree_buffer_leave",
             handler = function()
               vim.opt_local.signcolumn = "auto:9"
