@@ -16,7 +16,7 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "tsserver", "marksman", "ruff_lsp" },
+        ensure_installed = { "lua_ls", "tsserver", "marksman", "pylsp" },
       })
     end,
   },
@@ -37,7 +37,7 @@ return {
       lspconfig.marksman.setup({
         capabilities = capabilities,
       })
-      lspconfig.ruff_lsp.setup({
+      lspconfig.pylsp.setup({
         capabilities = capabilities,
       })
       -- set up keybindings
