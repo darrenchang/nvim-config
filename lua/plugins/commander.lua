@@ -18,7 +18,7 @@ return {
     })
     commander.setup({
       prompt_title = "Commander",
-      separator = "  ",
+      separator = " │ ",
       components = {
         "DESC",
         "KEYS",
@@ -26,9 +26,9 @@ return {
         "CMD",
       },
       sort_by = {
-        "DESC",
-        "KEYS",
         "CAT",
+        "KEYS",
+        "DESC",
         "CMD",
       },
       integration = {
