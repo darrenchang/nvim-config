@@ -6,6 +6,13 @@ return {
       "nvim-tree/nvim-web-devicons",
       "famiu/bufdelete.nvim",
     },
+    commander = {
+      {
+        cmd = "<CMD>bdelete<CR>",
+        desc = "Close buffer",
+        keys = { "n", "<leader>bd" },
+      },
+    },
     config = function()
       local bufferline = require("bufferline")
       local bufdelete = require("bufdelete")

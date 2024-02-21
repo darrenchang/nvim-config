@@ -19,6 +19,16 @@ return {
   {
     -- https://github.com/lewis6991/gitsigns.nvim
     "lewis6991/gitsigns.nvim",
+    commander = {
+      {
+        cmd = "<CMD>Gitsigns toggle_current_line_blame<CR>",
+        desc = "Toggle current line git blame",
+      },
+      {
+        cmd = "<CMD>Gitsigns blame_line<CR>",
+        desc = "Blame line",
+      }
+    },
     config = function()
       local gitsignsconfig = require("gitsigns")
       gitsignsconfig.setup({
