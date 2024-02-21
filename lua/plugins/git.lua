@@ -5,6 +5,13 @@ return {
     dependenceis = {
       "nvim-lua/plenary.nvim",
     },
+    commander = {
+      {
+        cmd = "<CMD>LazyGit<CR>",
+        desc = "Open LazyGit float window",
+        keys = { "n", "<leader>lg"},
+      }
+    },
     config = function()
       require("lazygit")
     end,
