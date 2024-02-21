@@ -21,12 +21,16 @@ return {
     "lewis6991/gitsigns.nvim",
     commander = {
       {
-        cmd = "<CMD>Gitsigns toggle_current_line_blame<CR>",
-        desc = "Toggle current line git blame",
+        cmd = function()
+          package.loaded.gitsigns.blame_line({ full = true })
+        end,
+        desc = "Blame line",
       },
       {
-        cmd = "<CMD>Gitsigns blame_line<CR>",
-        desc = "Blame line",
+        cmd = function()
+          package.loaded.gitsigns.toggle_current_line_blame()
+        end,
+        desc = "Toggle current line git blame",
       }
     },
     config = function()
@@ -85,10 +89,6 @@ return {
           map("n", "<leader>hu", gs.undo_stage_hunk)
           map("n", "<leader>hR", gs.reset_buffer)
           map("n", "<leader>hp", gs.preview_hunk)
-          map("n", "<leader>hb", function()
-            gs.blame_line({ full = true })
-          end)
-          map("n", "<leader>tb", gs.toggle_current_line_blame)
           map("n", "<leader>hd", gs.diffthis)
           map("n", "<leader>hD", function()
             gs.diffthis("~")

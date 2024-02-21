@@ -8,7 +8,9 @@ return {
     },
     commander = {
       {
-        cmd = "<CMD>bdelete<CR>",
+        cmd = function()
+          require("bufdelete").bufdelete()
+        end,
         desc = "Close buffer",
         keys = { "n", "<leader>bd" },
       },
