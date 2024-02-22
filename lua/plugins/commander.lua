@@ -15,6 +15,10 @@ return {
         },
         show = false,
       },
+      {
+        desc = "Run restart api script",
+        cmd = "<CMD>wa<CR><CMD>!./restart_api.sh<CR>",
+      },
     })
     commander.setup({
       prompt_title = "Commander",
