@@ -17,12 +17,12 @@ return {
       {
         cmd = "<CMD>BufferLineCycleNext<CR>",
         desc = "Buffer next",
-        keys = { "n", "bn" },
+        keys = { "n", "<leader>bn" },
       },
       {
         cmd = "<CMD>BufferLineCyclePrev<CR>",
         desc = "Buffer previous",
-        keys = { "n", "bp" },
+        keys = { "n", "<leader>bp" },
       },
     },
     config = function()
