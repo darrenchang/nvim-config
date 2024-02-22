@@ -14,6 +14,16 @@ return {
         desc = "Close buffer",
         keys = { "n", "<leader>bd" },
       },
+      {
+        cmd = "<CMD>BufferLineCycleNext<CR>",
+        desc = "Buffer next",
+        keys = { "n", "bn" },
+      },
+      {
+        cmd = "<CMD>BufferLineCyclePrev<CR>",
+        desc = "Buffer previous",
+        keys = { "n", "bp" },
+      },
     },
     config = function()
       local bufferline = require("bufferline")
