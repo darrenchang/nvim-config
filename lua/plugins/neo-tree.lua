@@ -40,7 +40,7 @@ return {
           {
             event = "neo_tree_buffer_leave",
             handler = function()
-              vim.opt_local.signcolumn = "auto:9"
+              vim.opt_local.signcolumn = "yes:2"
             end,
           },
         },
