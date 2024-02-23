@@ -40,6 +40,11 @@ return {
       lspconfig.pylsp.setup({
         capabilities = capabilities,
       })
+      -- set up lsp options
+      vim.lsp.handlers["textDocument/publishDiagnostics"] =
+          vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+            update_in_insert = true,
+          })
       -- set up keybindings
       vim.keymap.set("n", "<leader>b", vim.lsp.buf.hover, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)

@@ -42,6 +42,7 @@ return {
             },
           },
           diagnostics = "nvim_lsp",
+          diagnostics_update_in_insert = true,
           diagnostics_indicator = function(_, _, diagnostics_dict)
             local s = ""
             for e, n in pairs(diagnostics_dict) do

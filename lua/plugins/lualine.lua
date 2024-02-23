@@ -105,6 +105,18 @@ return {
           ignore_focus = { "neo-tree", "lazy" },
         },
         sections = {
+          lualine_b = {
+            {
+              "branch",
+            },
+            {
+              "diff"
+            },
+            {
+              "diagnostics",
+              update_in_insert = true,
+            },
+          },
           lualine_z = {
             attached_clients,
             "location",
