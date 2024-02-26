@@ -15,6 +15,10 @@ return {
         keys = { "n", "<leader>bd" },
       },
       {
+        cmd = "<CMD>BufferLineCloseOthers<CR>",
+        desc = "Close all other buffers",
+      },
+      {
         cmd = "<CMD>BufferLineCycleNext<CR>",
         desc = "Buffer next",
         keys = { "n", "<leader>bn" },
