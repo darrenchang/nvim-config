@@ -1,12 +1,12 @@
 return {
   {
     -- https://github.com/catppuccin/nvim
-    "catppuccin/nvim",
+    'catppuccin/nvim',
     lazy = false,
-    name = "catppuccin",
+    name = 'catppuccin',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("catppuccin")
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
 }

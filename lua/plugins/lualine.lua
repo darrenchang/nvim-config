@@ -1,9 +1,9 @@
 -- Returns a string with a list of attached LSP clients, including
 -- formatters and linters from null-ls, nvim-lint and formatter.nvim
 local function get_attached_clients()
-  local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+  local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
   if #buf_clients == 0 then
-    return "LSP Inactive"
+    return 'LSP Inactive'
   end
 
   local buf_ft = vim.bo.filetype
@@ -11,7 +11,7 @@ local function get_attached_clients()
 
   -- add client
   for _, client in pairs(buf_clients) do
-    if client.name ~= "copilot" and client.name ~= "null-ls" then
+    if client.name ~= 'copilot' and client.name ~= 'null-ls' then
       table.insert(buf_client_names, client.name)
     end
   end
@@ -20,7 +20,7 @@ local function get_attached_clients()
 
   -- Add sources (from null-ls)
   -- null-ls registers each source as a separate attached client, so we need to filter for unique names down below.
-  local null_ls_s, null_ls = pcall(require, "null-ls")
+  local null_ls_s, null_ls = pcall(require, 'null-ls')
   if null_ls_s then
     local sources = null_ls.get_sources()
     for _, source in ipairs(sources) do
@@ -35,16 +35,16 @@ local function get_attached_clients()
   end
 
   -- Add linters (from nvim-lint)
-  local lint_s, lint = pcall(require, "lint")
+  local lint_s, lint = pcall(require, 'lint')
   if lint_s then
     for ft_k, ft_v in pairs(lint.linters_by_ft) do
-      if type(ft_v) == "table" then
+      if type(ft_v) == 'table' then
         for _, linter in ipairs(ft_v) do
           if buf_ft == ft_k then
             table.insert(buf_client_names, linter)
           end
         end
-      elseif type(ft_v) == "string" then
+      elseif type(ft_v) == 'string' then
         if buf_ft == ft_k then
           table.insert(buf_client_names, ft_v)
         end
@@ -53,10 +53,12 @@ local function get_attached_clients()
   end
 
   -- Add formatters (from formatter.nvim)
-  local formatter_s, _ = pcall(require, "formatter")
+  local formatter_s, _ = pcall(require, 'formatter')
   if formatter_s then
-    local formatter_util = require("formatter.util")
-    for _, formatter in ipairs(formatter_util.get_available_formatters_for_ft(buf_ft)) do
+    local formatter_util = require 'formatter.util'
+    for _, formatter in
+      ipairs(formatter_util.get_available_formatters_for_ft(buf_ft))
+    do
       if formatter then
         table.insert(buf_client_names, formatter)
       end
@@ -77,53 +79,52 @@ local function get_attached_clients()
     end
   end
 
-  local client_names_str = table.concat(unique_client_names, ", ")
-  local language_servers = string.format("%s", client_names_str)
+  local client_names_str = table.concat(unique_client_names, ', ')
+  local language_servers = string.format('%s', client_names_str)
 
   return language_servers
 end
 
 return {
   {
-    -- https://github.com/nvim-lualine/lualine.nvim
-    "nvim-lualine/lualine.nvim",
+    'nvim-lualine/lualine.nvim',
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
+      'nvim-tree/nvim-web-devicons',
     },
     config = function()
       local attached_clients = {
         get_attached_clients,
         color = {
-          gui = "bold",
+          gui = 'bold',
         },
       }
-      require("lualine").setup({
+      require('lualine').setup {
         options = {
-          theme = "dracula",
+          theme = 'dracula',
           globalstatus = false,
-          disabled_filetypes = { "neo-tree" },
-          ignore_focus = { "neo-tree", "lazy" },
+          disabled_filetypes = { 'neo-tree' },
+          ignore_focus = { 'neo-tree', 'lazy' },
         },
         sections = {
           lualine_b = {
             {
-              "branch",
+              'branch',
             },
             {
-              "diff"
+              'diff',
             },
             {
-              "diagnostics",
+              'diagnostics',
               update_in_insert = true,
             },
           },
           lualine_z = {
             attached_clients,
-            "location",
-            "searchcount",
+            'location',
+            'searchcount',
           },
         },
-      })
+      }
     end,
   },
 }
