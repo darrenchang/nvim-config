@@ -1,19 +1,18 @@
 return {
   {
-    -- https://github.com/nvimtools/none-ls.nvim
-    "nvimtools/none-ls.nvim",
+    'nvimtools/none-ls.nvim',
     commander = {
       {
         cmd = function()
           vim.lsp.buf.format()
         end,
-        desc = "Format the buffer",
-        keys = { "n", "<leader>gf" },
+        desc = 'Format the buffer',
+        keys = { 'n', '<leader>gf' },
       },
     },
     config = function()
-      local null_ls = require("null-ls")
-      null_ls.setup({
+      local null_ls = require 'null-ls'
+      null_ls.setup {
         sources = {
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.prettier,
@@ -24,20 +23,28 @@ return {
           null_ls.builtins.diagnostics.ruff,
           null_ls.builtins.diagnostics.eslint_d,
         },
-      })
+      }
     end,
   },
   {
-    -- https://github.com/jay-babu/mason-null-ls.nvim
-    "jay-babu/mason-null-ls.nvim",
+    'jay-babu/mason-null-ls.nvim',
     dependencies = {
-      "williamboman/mason.nvim",
-      "nvimtools/none-ls.nvim",
+      'williamboman/mason.nvim',
+      'nvimtools/none-ls.nvim',
     },
     config = function()
-      require("mason-null-ls").setup({
-        ensure_installed = { "stylua", "selene", "cbfmt", "black", "isort", "ruff", "prettier", "eslint_d" },
-      })
+      require('mason-null-ls').setup {
+        ensure_installed = {
+          'stylua',
+          'selene',
+          'cbfmt',
+          'black',
+          'isort',
+          'ruff',
+          'prettier',
+          'eslint_d',
+        },
+      }
     end,
   },
 }
