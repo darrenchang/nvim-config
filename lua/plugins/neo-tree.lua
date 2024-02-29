@@ -8,9 +8,15 @@ return {
       'MunifTanjim/nui.nvim',
       '3rd/image.nvim',
     },
+    commander = {
+      {
+        cmd = '<CMD>Neotree toggle<CR>',
+        desc = 'Toggle Neotree',
+        keys = { 'n', '<leader>e' },
+      },
+    },
     config = function()
-      vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', {})
-      require('neo-tree').setup {
+      require('neo-tree').setup({
         filesystem = {
           enable_refresh_on_write = true,
           follow_current_file = {
@@ -43,7 +49,7 @@ return {
             end,
           },
         },
-      }
+      })
     end,
   },
 }
