@@ -40,7 +40,7 @@ return {
           'cbfmt',
           'black',
           'isort',
-          'ruff',
+          'ruff_lsp',
           'prettier',
           'eslint_d',
         },
