@@ -29,9 +29,9 @@ return {
       },
     },
     config = function()
-      local bufferline = require 'bufferline'
-      local bufdelete = require 'bufdelete'
-      bufferline.setup {
+      local bufferline = require('bufferline')
+      local bufdelete = require('bufdelete')
+      bufferline.setup({
         options = {
           mode = 'buffers',
           -- Prevent buffer window from being closed https://github.com/LunarVim/LunarVim/issues/2455#issuecomment-1867969796
@@ -51,7 +51,7 @@ return {
             local s = ''
             for e, n in pairs(diagnostics_dict) do
               local sym = e == 'error' and ' '
-                or (e == 'warning' and ' ' or '')
+                  or (e == 'warning' and ' ' or '')
               if s ~= '' then
                 s = ' | ' .. s
               end
@@ -61,7 +61,7 @@ return {
           end,
           always_show_bufferline = true,
         },
-      }
+      })
     end,
   },
 }

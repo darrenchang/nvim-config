@@ -1,7 +1,7 @@
 -- Returns a string with a list of attached LSP clients, including
 -- formatters and linters from null-ls, nvim-lint and formatter.nvim
 local function get_attached_clients()
-  local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
+  local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
   if #buf_clients == 0 then
     return 'LSP Inactive'
   end
@@ -55,9 +55,9 @@ local function get_attached_clients()
   -- Add formatters (from formatter.nvim)
   local formatter_s, _ = pcall(require, 'formatter')
   if formatter_s then
-    local formatter_util = require 'formatter.util'
+    local formatter_util = require('formatter.util')
     for _, formatter in
-      ipairs(formatter_util.get_available_formatters_for_ft(buf_ft))
+    ipairs(formatter_util.get_available_formatters_for_ft(buf_ft))
     do
       if formatter then
         table.insert(buf_client_names, formatter)
@@ -98,7 +98,7 @@ return {
           gui = 'bold',
         },
       }
-      require('lualine').setup {
+      require('lualine').setup({
         options = {
           theme = 'dracula',
           globalstatus = false,
@@ -124,7 +124,7 @@ return {
             'searchcount',
           },
         },
-      }
+      })
     end,
   },
 }

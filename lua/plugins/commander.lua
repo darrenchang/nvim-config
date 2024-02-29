@@ -4,8 +4,8 @@ return {
     'nvim-telescope/telescope.nvim',
   },
   config = function()
-    local commander = require 'commander'
-    commander.add {
+    local commander = require('commander')
+    commander.add({
       {
         desc = 'Open Telescope commander menu',
         cmd = '<CMD>Telescope commander<CR>',
@@ -19,8 +19,8 @@ return {
         desc = 'Run restart api script',
         cmd = '<CMD>wa<CR><CMD>!./restart_api.sh<CR>',
       },
-    }
-    commander.setup {
+    })
+    commander.setup({
       prompt_title = 'Commander',
       separator = ' │ ',
       components = {
@@ -44,6 +44,6 @@ return {
           set_plugin_name_as_cat = true,
         },
       },
-    }
+    })
   end,
 }

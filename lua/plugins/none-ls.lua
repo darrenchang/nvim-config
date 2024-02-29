@@ -11,8 +11,8 @@ return {
       },
     },
     config = function()
-      local null_ls = require 'null-ls'
-      null_ls.setup {
+      local null_ls = require('null-ls')
+      null_ls.setup({
         sources = {
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.prettier,
@@ -23,7 +23,7 @@ return {
           null_ls.builtins.diagnostics.ruff,
           null_ls.builtins.diagnostics.eslint_d,
         },
-      }
+      })
     end,
   },
   {
@@ -33,7 +33,7 @@ return {
       'nvimtools/none-ls.nvim',
     },
     config = function()
-      require('mason-null-ls').setup {
+      require('mason-null-ls').setup({
         ensure_installed = {
           'stylua',
           'selene',
@@ -44,7 +44,7 @@ return {
           'prettier',
           'eslint_d',
         },
-      }
+      })
     end,
   },
 }

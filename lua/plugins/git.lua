@@ -12,7 +12,7 @@ return {
       },
     },
     config = function()
-      require 'lazygit'
+      require('lazygit')
     end,
   },
   {
@@ -20,7 +20,7 @@ return {
     commander = {
       {
         cmd = function()
-          package.loaded.gitsigns.blame_line { full = true }
+          package.loaded.gitsigns.blame_line({ full = true })
         end,
         desc = 'Blame line',
       },
@@ -32,8 +32,8 @@ return {
       },
     },
     config = function()
-      local gitsignsconfig = require 'gitsigns'
-      gitsignsconfig.setup {
+      local gitsignsconfig = require('gitsigns')
+      gitsignsconfig.setup({
         word_diff = false,
         current_line_blame = true,
         current_line_blame_opts = {
@@ -78,10 +78,10 @@ return {
           map('n', '<leader>hs', gs.stage_hunk)
           map('n', '<leader>hr', gs.reset_hunk)
           map('v', '<leader>hs', function()
-            gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+            gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
           end)
           map('v', '<leader>hr', function()
-            gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+            gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
           end)
           map('n', '<leader>hS', gs.stage_buffer)
           map('n', '<leader>hu', gs.undo_stage_hunk)
@@ -89,14 +89,14 @@ return {
           map('n', '<leader>hp', gs.preview_hunk)
           map('n', '<leader>hd', gs.diffthis)
           map('n', '<leader>hD', function()
-            gs.diffthis '~'
+            gs.diffthis('~')
           end)
           map('n', '<leader>td', gs.toggle_deleted)
 
           -- Text object
           map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
         end,
-      }
+      })
     end,
   },
 }
