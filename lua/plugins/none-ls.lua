@@ -20,8 +20,6 @@ return {
           null_ls.builtins.formatting.isort,
           null_ls.builtins.formatting.cbfmt,
           -- null_ls.builtins.diagnostics.selene,
-          null_ls.builtins.diagnostics.ruff,
-          null_ls.builtins.diagnostics.eslint_d,
         },
       })
     end,
@@ -42,7 +40,7 @@ return {
           'isort',
           'ruff_lsp',
           'prettier',
-          'eslint_d',
+          'tsserver',
         },
       })
     end,
