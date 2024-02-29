@@ -20,6 +20,8 @@ return {
           null_ls.builtins.formatting.isort,
           null_ls.builtins.formatting.cbfmt,
           -- null_ls.builtins.diagnostics.selene,
+          null_ls.builtins.diagnostics.ruff_lsp,
+          -- null_ls.builtins.diagnostics.tsc,
         },
       })
     end,
