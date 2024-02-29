@@ -2,6 +2,15 @@ return {
   {
     -- https://github.com/nvimtools/none-ls.nvim
     "nvimtools/none-ls.nvim",
+    commander = {
+      {
+        cmd = function()
+          vim.lsp.buf.format()
+        end,
+        desc = "Format the buffer",
+        keys = { "n", "<leader>gf" },
+      },
+    },
     config = function()
       local null_ls = require("null-ls")
       null_ls.setup({
@@ -16,7 +25,6 @@ return {
           null_ls.builtins.diagnostics.eslint_d,
         },
       })
-      vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
     end,
   },
   {
