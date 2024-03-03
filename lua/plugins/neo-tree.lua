@@ -14,6 +14,11 @@ return {
         desc = 'Toggle Neotree',
         keys = { 'n', '<leader>e' },
       },
+      {
+        cmd = "<CMD>Neotree focus<CR>",
+        desc = "Focus Neotree",
+        keys = { 'n', '<leader>o' },
+      },
     },
     config = function()
       require('neo-tree').setup({
