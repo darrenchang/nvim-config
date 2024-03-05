@@ -21,7 +21,7 @@ return {
       },
       {
         desc = 'Copy the nvim buffer to tmux buffer',
-        cmd = '<CMD>:w !tmux load-buffer -<CR>',
+        cmd = '<CMD>\'<,\'>w !tmux load-buffer -<CR>',
       },
     })
     commander.setup({
