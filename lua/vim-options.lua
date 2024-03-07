@@ -11,5 +11,6 @@ vim.cmd('set list')
 vim.cmd('set nowrap')
 vim.cmd('set cmdheight=0')
 vim.cmd('set mouse=a')
+vim.cmd('set sessionoptions=buffers,folds,help,tabpages,winsize,winpos,terminal,localoptions')
 vim.opt.termguicolors = true
 vim.g.mapleader = ' '

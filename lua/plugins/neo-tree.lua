@@ -15,8 +15,8 @@ return {
         keys = { 'n', '<leader>e' },
       },
       {
-        cmd = "<CMD>Neotree focus<CR>",
-        desc = "Focus Neotree",
+        cmd = '<CMD>Neotree focus<CR>',
+        desc = 'Focus Neotree',
         keys = { 'n', '<leader>o' },
       },
     },
