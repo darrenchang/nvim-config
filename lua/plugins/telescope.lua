@@ -4,10 +4,32 @@ return {
     tag = '0.1.5',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'BurntSushi/ripgrep',
+    },
+    commander = {
+      {
+        cmd = "<CMD>Telescope find_files<CR>",
+        desc = "Find files",
+        keys = { 'n', '<leader>ff' },
+      },
+      {
+        cmd = "<CMD>Telescope live_grep<CR>",
+        desc = "Live grep",
+        keys = { 'n', '<leader>fg' },
+      },
+      {
+        cmd = "<CMD>Telescope buffers<CR>",
+        desc = "Find buffers",
+        keys = { 'n', '<leader>fb' },
+      },
+      {
+        cmd = "<CMD>Telescope help_tags<CR>",
+        desc = "Find available help tags",
+        keys = { 'n', '<leader>fh' },
+      },
     },
     config = function()
-      local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+      require('telescope.builtin')
     end,
   },
   {
