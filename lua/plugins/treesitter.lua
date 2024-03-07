@@ -7,7 +7,10 @@ return {
       config.setup({
         ensure_installed = { 'lua', 'javascript', 'python' },
         auto_instal = true,
-        highlight = { enable = true },
+        highlight = {
+          enable = true,
+          disable = { "vimdoc" },
+        },
         indent = { enable = true },
       })
     end,
