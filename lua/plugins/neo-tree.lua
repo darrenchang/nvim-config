@@ -22,6 +22,7 @@ return {
     },
     config = function()
       require('neo-tree').setup({
+        popup_border_style = "rounded",
         filesystem = {
           enable_refresh_on_write = true,
           follow_current_file = {
@@ -39,6 +40,9 @@ return {
             { source = 'git_status', display_name = '󰊢 Git' },
             { source = 'buffers', display_name = ' Bufs' },
           },
+        },
+        window = {
+          position = "float",
         },
         event_handlers = {
           {
