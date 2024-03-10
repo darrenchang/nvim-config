@@ -4,9 +4,8 @@ return {
     config = function()
       require('smoothcursor').setup({
         type = 'default',
-        cursor = 'x',
         speed = 25,
-        threshold = 1,
+        threshold = 3,
         intervals = 40,
         fancy = {
           enable = true,
