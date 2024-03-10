@@ -20,12 +20,12 @@ return {
       {
         cmd = '<CMD>BufferLineCycleNext<CR>',
         desc = 'Buffer next',
-        keys = { 'n', '<leader>bn' },
+        keys = { 'n', '<Tab>' },
       },
       {
         cmd = '<CMD>BufferLineCyclePrev<CR>',
         desc = 'Buffer previous',
-        keys = { 'n', '<leader>bp' },
+        keys = { 'n', '<S-Tab>' },
       },
     },
     config = function()
