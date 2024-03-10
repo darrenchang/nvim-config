@@ -5,6 +5,7 @@ vim.cmd('set softtabstop=2')
 vim.cmd('set shiftwidth=2')
 vim.cmd('set statuscolumn=%s%=%{v:relnum?v:relnum:v:lnum}│\\ ')
 vim.cmd('set signcolumn=yes:1')
+vim.opt.swapfile = false
 vim.cmd('set relativenumber number')
 vim.cmd('set cursorline')
 vim.cmd('set list')
