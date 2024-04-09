@@ -5,4 +5,5 @@ My personal nvim configuration
 - npm
 - yarn
 - lazygit
+- python virtualenv
 
