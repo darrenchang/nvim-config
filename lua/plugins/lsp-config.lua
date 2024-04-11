@@ -1,3 +1,8 @@
+local function getHomeDirectory()
+    local home = os.getenv("HOME") or os.getenv("USERPROFILE")
+    return home
+end
+
 return {
   {
     'williamboman/mason.nvim',
@@ -14,7 +19,13 @@ return {
     },
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'tsserver', 'marksman', 'pylsp' },
+        ensure_installed = {
+          'lua_ls',
+          'tsserver',
+          'marksman',
+          'pylsp',
+          'volar',
+        },
       })
     end,
   },
@@ -40,6 +51,7 @@ return {
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require('lspconfig')
+      local lspconfig_configs = require('lspconfig.configs')
       -- Set hover window to transparent background color
       local set_hl_for_floating_window = function()
         vim.api.nvim_set_hl(0, 'NormalFloat', {
@@ -84,6 +96,23 @@ return {
       lspconfig.pylsp.setup({
         capabilities = capabilities,
         handlers = handlers,
+      })
+      lspconfig.volar.setup({
+        capabilities = capabilities,
+        handlers = handlers,
+        filetypes = {
+          'typescript',
+          'javascript',
+          'javascriptreact',
+          'typescriptreact',
+          'vue',
+          'json',
+        },
+        init_options = {
+          typescript = {
+            tsdk = getHomeDirectory() .. '/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib',
+          },
+        },
       })
       -- set up lsp options
       vim.lsp.handlers['textDocument/publishDiagnostics'] =
