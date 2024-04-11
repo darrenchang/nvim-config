@@ -51,7 +51,6 @@ return {
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require('lspconfig')
-      local lspconfig_configs = require('lspconfig.configs')
       local lspconfig_util = require('lspconfig.util')
       local function on_new_config(new_config, new_root_dir)
         local function get_typescript_server_path(root_dir)
@@ -130,9 +129,7 @@ return {
         cmd = volar_cmd,
         root_dir = volar_root_dir,
         on_new_config = on_new_config,
-        filetypes = { 'vue' },
-        -- If you want to use Volar's Take Over Mode (if you know, you know)
-        --filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
         init_options = {
           typescript = {
             tsdk = getHomeDirectory()
@@ -142,7 +139,7 @@ return {
             implementation = true, -- new in @volar/vue-language-server v0.33
             documentHighlight = true,
             documentLink = true,
-            codeLens = { showReferencesNotification = true},
+            codeLens = { showReferencesNotification = true },
             -- not supported - https://github.com/neovim/neovim/pull/15723
             semanticTokens = false,
             diagnostics = true,
@@ -175,7 +172,7 @@ return {
             documentFormatting = {
               defaultPrintWidth = 100,
             },
-          }
+          },
         },
       })
       -- set up lsp options
