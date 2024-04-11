@@ -140,6 +140,14 @@ return {
           },
           languageFeatures = {
             implementation = true, -- new in @volar/vue-language-server v0.33
+            documentHighlight = true,
+            documentLink = true,
+            codeLens = { showReferencesNotification = true},
+            -- not supported - https://github.com/neovim/neovim/pull/15723
+            semanticTokens = false,
+            diagnostics = true,
+            schemaRequestService = true,
+            -- not supported - https://github.com/neovim/neovim/pull/15723
             references = true,
             definition = true,
             typeDefinition = true,
@@ -157,6 +165,17 @@ return {
               getDocumentSelectionRequest = true,
             },
           },
+          documentFeatures = {
+            selectionRange = true,
+            foldingRange = true,
+            linkedEditingRange = true,
+            documentSymbol = true,
+            -- not supported - https://github.com/neovim/neovim/pull/13654
+            documentColor = false,
+            documentFormatting = {
+              defaultPrintWidth = 100,
+            },
+          }
         },
       })
       -- set up lsp options
