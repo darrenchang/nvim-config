@@ -1,6 +1,6 @@
 local function getHomeDirectory()
-    local home = os.getenv("HOME") or os.getenv("USERPROFILE")
-    return home
+  local home = os.getenv('HOME') or os.getenv('USERPROFILE')
+  return home
 end
 
 return {
@@ -52,6 +52,35 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require('lspconfig')
       local lspconfig_configs = require('lspconfig.configs')
+      local lspconfig_util = require('lspconfig.util')
+      local function on_new_config(new_config, new_root_dir)
+        local function get_typescript_server_path(root_dir)
+          local project_root =
+            lspconfig_util.find_node_modules_ancestor(root_dir)
+          return project_root
+              and (lspconfig_util.path.join(
+                project_root,
+                'node_modules',
+                'typescript',
+                'lib',
+                'tsserverlibrary.js'
+              ))
+            or ''
+        end
+
+        if
+          new_config.init_options
+          and new_config.init_options.typescript
+          and new_config.init_options.typescript.tsdk == ''
+        then
+          new_config.init_options.typescript.tsdk =
+            get_typescript_server_path(new_root_dir)
+        end
+      end
+
+      local volar_cmd = { 'vue-language-server', '--stdio' }
+      local volar_root_dir = lspconfig_util.root_pattern('package.json')
+
       -- Set hover window to transparent background color
       local set_hl_for_floating_window = function()
         vim.api.nvim_set_hl(0, 'NormalFloat', {
@@ -98,27 +127,43 @@ return {
         handlers = handlers,
       })
       lspconfig.volar.setup({
-        capabilities = capabilities,
-        handlers = handlers,
-        filetypes = {
-          'typescript',
-          'javascript',
-          'javascriptreact',
-          'typescriptreact',
-          'vue',
-          'json',
-        },
+        cmd = volar_cmd,
+        root_dir = volar_root_dir,
+        on_new_config = on_new_config,
+        filetypes = { 'vue' },
+        -- If you want to use Volar's Take Over Mode (if you know, you know)
+        --filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
         init_options = {
           typescript = {
-            tsdk = getHomeDirectory() .. '/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib',
+            tsdk = getHomeDirectory()
+              .. '/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib',
+          },
+          languageFeatures = {
+            implementation = true, -- new in @volar/vue-language-server v0.33
+            references = true,
+            definition = true,
+            typeDefinition = true,
+            callHierarchy = true,
+            hover = true,
+            rename = true,
+            renameFileRefactoring = true,
+            signatureHelp = true,
+            codeAction = true,
+            workspaceSymbol = true,
+            completion = {
+              defaultTagNameCase = 'both',
+              defaultAttrNameCase = 'kebabCase',
+              getDocumentNameCasesRequest = true,
+              getDocumentSelectionRequest = true,
+            },
           },
         },
       })
       -- set up lsp options
       vim.lsp.handlers['textDocument/publishDiagnostics'] =
-          vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-            update_in_insert = true,
-          })
+        vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+          update_in_insert = true,
+        })
     end,
   },
 }
