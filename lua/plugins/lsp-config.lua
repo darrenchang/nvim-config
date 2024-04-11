@@ -141,7 +141,7 @@ return {
             documentLink = true,
             codeLens = { showReferencesNotification = true },
             -- not supported - https://github.com/neovim/neovim/pull/15723
-            semanticTokens = false,
+            semanticTokens = true,
             diagnostics = true,
             schemaRequestService = true,
             -- not supported - https://github.com/neovim/neovim/pull/15723
@@ -168,7 +168,7 @@ return {
             linkedEditingRange = true,
             documentSymbol = true,
             -- not supported - https://github.com/neovim/neovim/pull/13654
-            documentColor = false,
+            documentColor = true,
             documentFormatting = {
               defaultPrintWidth = 100,
             },
