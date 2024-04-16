@@ -10,14 +10,9 @@ return {
     },
     commander = {
       {
-        cmd = '<CMD>Neotree toggle<CR>',
+        cmd = '<CMD>Neotree reveal<CR>',
         desc = 'Toggle Neotree',
         keys = { 'n', '<leader>e' },
-      },
-      {
-        cmd = '<CMD>Neotree focus<CR>',
-        desc = 'Focus Neotree',
-        keys = { 'n', '<leader>o' },
       },
     },
     config = function()
