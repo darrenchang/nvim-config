@@ -124,6 +124,15 @@ return {
       lspconfig.pylsp.setup({
         capabilities = capabilities,
         handlers = handlers,
+        settings = {
+          pylsp = {
+            plugins = {
+              pycodestyle = {
+                maxLineLength = 119,
+              },
+            },
+          },
+        },
       })
       lspconfig.volar.setup({
         cmd = volar_cmd,
