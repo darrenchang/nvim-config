@@ -23,7 +23,7 @@ return {
     config = function()
       require('lazygit')
       vim.g.lazygit_use_custom_config_file_path = 1
-      vim.g.lazygit_config_file_path = 'extra/lazygit/config.yml'
+      vim.g.lazygit_config_file_path = vim.fn.stdpath("config") .. '/extra/lazygit/config.yml'
     end,
   },
   {
