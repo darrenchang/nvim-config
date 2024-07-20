@@ -10,7 +10,7 @@ return {
     },
     commander = {
       {
-        cmd = '<CMD>LazyGit<CR>',
+        cmd = '<CMD>wa<CR><CMD>LazyGit<CR>',
         desc = 'Open LazyGit float window',
         keys = { 'n', '<leader>lg' },
       },
