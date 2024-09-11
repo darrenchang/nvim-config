@@ -17,7 +17,7 @@ return {
       },
       {
         desc = 'Run restart api script',
-        cmd = '<CMD>wa<CR><CMD>!./restart_api.sh<CR>',
+        cmd = '<CMD>wa<CR><CMD>silent !./restart_api.sh<CR>',
       },
       {
         desc = 'Copy the nvim buffer to tmux buffer',
