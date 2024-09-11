@@ -14,7 +14,7 @@ return {
         keys = { 'n', '<leader>bd' },
       },
       {
-        cmd = '<CMD>BufferLineCloseOthers<CR>',
+        cmd = '<CMD>silent %bd|e#|bd#<CR>',
         desc = 'Close all other buffers',
       },
       {
