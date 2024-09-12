@@ -44,15 +44,15 @@ return {
         pickers = {
           find_files = {
             hidden = true,
-            file_ignore_patterns = { 'node_modules', '.git' }
+            file_ignore_patterns = { 'node_modules', '.git', 'dist' }
           },
           grep_string = {
             additional_args = {"--hidden"},
-            file_ignore_patterns = { 'node_modules', '.git' }
+            file_ignore_patterns = { 'node_modules', '.git', 'dist' }
           },
           live_grep = {
             additional_args = {"--hidden"},
-            file_ignore_patterns = { 'node_modules', '.git' }
+            file_ignore_patterns = { 'node_modules', '.git', 'dist' }
           },
         },
       })
