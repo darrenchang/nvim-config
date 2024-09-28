@@ -21,7 +21,7 @@ return {
       require('mason-lspconfig').setup({
         ensure_installed = {
           'lua_ls',
-          'tsserver',
+          'ts_ls',
           'marksman',
           'pylsp',
           'volar@1.8.27',
@@ -61,8 +61,7 @@ return {
                 project_root,
                 'node_modules',
                 'typescript',
-                'lib',
-                'tsserverlibrary.js'
+                'lib'
               ))
             or ''
         end
@@ -113,7 +112,7 @@ return {
         capabilities = capabilities,
         handlers = handlers,
       })
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
         handlers = handlers,
       })
