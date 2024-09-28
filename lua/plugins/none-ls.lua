@@ -43,7 +43,7 @@ return {
           'ruff',
           'ruff_lsp',
           'prettier',
-          'tsserver',
+          'ts_ls',
         },
       })
     end,
