@@ -14,6 +14,12 @@ return {
         desc = 'Toggle Neotree',
         keys = { 'n', '<leader>e' },
       },
+      {
+        cmd = '<CMD>Neotree buffers<CR>',
+        desc = 'Toggle Neotree Buffers',
+        keys = { 'n', '<leader>b' },
+      },
+
     },
     config = function()
       require('neo-tree').setup({
