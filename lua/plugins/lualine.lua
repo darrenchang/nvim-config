@@ -1,3 +1,19 @@
+-- Use gitsigns to keep track of git info
+local function diff_source()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed
+    }
+  end
+end
+-- Get the window number
+local function window()
+  return vim.api.nvim_win_get_number(0)
+end
+
 -- Format function for displaying macro recording status
 local function show_macro_recording()
   local recording_register = vim.fn.reg_recording()
@@ -114,29 +130,78 @@ return {
           globalstatus = false,
           disabled_filetypes = { 'neo-tree' },
           ignore_focus = { 'neo-tree', 'lazy' },
+          refresh = {
+            statusline = 1000,  -- Refresh every second (can be adjusted)
+            tabline = 1000,
+            winbar = 1000,
+          }
         },
         sections = {
-          lualine_b = {
+          lualine_a = {
             {
-              'branch',
+              window,
             },
             {
-              'diff',
-            },
-            {
-              'diagnostics',
-              update_in_insert = true,
+              'filename',
             },
             {
               "macro-recording",
               fmt = show_macro_recording,
             },
           },
-          lualine_z = {
+          lualine_b = {
+            {
+              'diff', source = diff_source,
+            },
+            {
+              'diagnostics',
+              update_in_insert = true,
+            },
+          },
+          lualine_c = {
+            {
+            },
+          },
+          lualine_x = {
+            'encoding',
+            'fileformat',
+            'filetype',
             attached_clients,
+            'progress',
+          },
+          lualine_y = {
+          },
+          lualine_z = {
             'location',
             'searchcount',
           },
+        },
+        inactive_sections = {
+          lualine_a = {
+            {
+              window,
+            },
+            {
+              'filename',
+            },
+            {
+              'diff', source = diff_source,
+            },
+            {
+              'diagnostics',
+              update_in_insert = true,
+            },
+          },
+          lualine_b = {
+          },
+          lualine_c = {},
+          lualine_x = {
+          },
+          lualine_y = {},
+          lualine_z = {
+            'progress',
+            'location',
+          }
         },
       })
       -- Force refresh lualine as soon as entering recording state
