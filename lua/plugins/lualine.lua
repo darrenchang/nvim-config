@@ -130,7 +130,6 @@ return {
       local attached_clients = {
         get_attached_clients,
         color = {
-          gui = 'bold',
         },
       }
       require('lualine').setup({
