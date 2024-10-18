@@ -1,12 +1,21 @@
 -- Use gitsigns to keep track of git info
-local function diff_source()
+local function git_diff()
   local gitsigns = vim.b.gitsigns_status_dict
+  local added = gitsigns.added
+  local modified = gitsigns.changed
+  local removed = gitsigns.removed
+  local git_info = {}
+  if added > 0 then
+    table.insert(git_info, "+" .. added)
+  end
+  if modified > 0 then
+    table.insert(git_info, "~" .. modified)
+  end
+  if removed > 0 then
+    table.insert(git_info, "-" .. removed)
+  end
   if gitsigns then
-    return {
-      added = gitsigns.added,
-      modified = gitsigns.changed,
-      removed = gitsigns.removed
-    }
+    return table.concat(git_info, " ");
   end
 end
 -- Get the window number
@@ -14,7 +23,7 @@ local function window()
   return vim.api.nvim_win_get_number(0)
 end
 
--- Format function for displaying macro recording status
+-- Format functionfor displaying macro recording status
 local function show_macro_recording()
   local recording_register = vim.fn.reg_recording()
   if recording_register == "" then
@@ -151,7 +160,7 @@ return {
           },
           lualine_b = {
             {
-              'diff', source = diff_source,
+              git_diff,
             },
             {
               'diagnostics',
@@ -185,7 +194,7 @@ return {
               'filename',
             },
             {
-              'diff', source = diff_source,
+              git_diff,
             },
             {
               'diagnostics',
