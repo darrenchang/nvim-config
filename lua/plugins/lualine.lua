@@ -6,16 +6,16 @@ local function git_diff()
   local removed = gitsigns.removed
   local git_info = {}
   if added > 0 then
-    table.insert(git_info, "+" .. added)
+    table.insert(git_info, '+' .. added)
   end
   if modified > 0 then
-    table.insert(git_info, "~" .. modified)
+    table.insert(git_info, '~' .. modified)
   end
   if removed > 0 then
-    table.insert(git_info, "-" .. removed)
+    table.insert(git_info, '-' .. removed)
   end
   if gitsigns then
-    return table.concat(git_info, " ");
+    return table.concat(git_info, ' ')
   end
 end
 -- Get the window number
@@ -26,10 +26,10 @@ end
 -- Format functionfor displaying macro recording status
 local function show_macro_recording()
   local recording_register = vim.fn.reg_recording()
-  if recording_register == "" then
-    return ""
+  if recording_register == '' then
+    return ''
   else
-    return "Recording @" .. recording_register
+    return 'Recording @' .. recording_register
   end
 end
 
@@ -92,7 +92,7 @@ local function get_attached_clients()
   if formatter_s then
     local formatter_util = require('formatter.util')
     for _, formatter in
-    ipairs(formatter_util.get_available_formatters_for_ft(buf_ft))
+      ipairs(formatter_util.get_available_formatters_for_ft(buf_ft))
     do
       if formatter then
         table.insert(buf_client_names, formatter)
@@ -129,8 +129,7 @@ return {
     config = function()
       local attached_clients = {
         get_attached_clients,
-        color = {
-        },
+        color = {},
       }
       require('lualine').setup({
         options = {
@@ -139,10 +138,10 @@ return {
           disabled_filetypes = { 'neo-tree' },
           ignore_focus = { 'neo-tree', 'lazy' },
           refresh = {
-            statusline = 1000,  -- Refresh every second (can be adjusted)
+            statusline = 1000, -- Refresh every second (can be adjusted)
             tabline = 1000,
             winbar = 1000,
-          }
+          },
         },
         sections = {
           lualine_a = {
@@ -153,7 +152,7 @@ return {
               'filename',
             },
             {
-              "macro-recording",
+              'macro-recording',
               fmt = show_macro_recording,
             },
           },
@@ -167,8 +166,7 @@ return {
             },
           },
           lualine_c = {
-            {
-            },
+            {},
           },
           lualine_x = {
             'encoding',
@@ -177,8 +175,7 @@ return {
             attached_clients,
             'progress',
           },
-          lualine_y = {
-          },
+          lualine_y = {},
           lualine_z = {
             'location',
             'searchcount',
@@ -200,28 +197,26 @@ return {
               update_in_insert = true,
             },
           },
-          lualine_b = {
-          },
+          lualine_b = {},
           lualine_c = {},
-          lualine_x = {
-          },
+          lualine_x = {},
           lualine_y = {},
           lualine_z = {
             'progress',
             'location',
-          }
+          },
         },
       })
       -- Force refresh lualine as soon as entering recording state
-      vim.api.nvim_create_autocmd("RecordingEnter", {
+      vim.api.nvim_create_autocmd('RecordingEnter', {
         callback = function()
           require('lualine').refresh({
-            place = { "statusline" },
+            place = { 'statusline' },
           })
         end,
       })
       -- Refresh lualine after leaving recording state
-      vim.api.nvim_create_autocmd("RecordingLeave", {
+      vim.api.nvim_create_autocmd('RecordingLeave', {
         callback = function()
           -- This is going to seem really weird!
           -- Instead of just calling refresh we need to wait a moment because of the nature of
@@ -235,7 +230,7 @@ return {
             0,
             vim.schedule_wrap(function()
               require('lualine').refresh({
-                place = { "statusline" },
+                place = { 'statusline' },
               })
             end)
           )
