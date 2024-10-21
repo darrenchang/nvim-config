@@ -105,7 +105,7 @@ local function get_attached_clients()
     end
   end
 
-  local client_names_str = table.concat(unique_client_names, ', ')
+  local client_names_str = table.concat(unique_client_names, '∣')
   local language_servers = string.format('%s', client_names_str)
 
   return language_servers
@@ -121,7 +121,6 @@ return {
       local attached_clients = {
         get_attached_clients,
         color = {
-          gui = 'bold',
         },
       }
       require('lualine').setup({
