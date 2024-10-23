@@ -24,7 +24,8 @@ return {
       },
       {
         cmd = function()
-          require('bufdelete').bufdelete()
+          local bufnr = vim.api.nvim_get_current_buf()
+          vim.cmd('bdelete! ' .. bufnr)
         end,
         desc = 'Close buffer',
         keys = { 'n', '<leader>bd' },
