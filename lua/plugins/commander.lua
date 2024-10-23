@@ -20,7 +20,33 @@ return {
       },
       {
         desc = 'Copy the nvim buffer to tmux buffer',
-        cmd = '<CMD>\'<,\'>w !tmux load-buffer -<CR>',
+        cmd = "<CMD>'<,'>w !tmux load-buffer -<CR>",
+      },
+      {
+        cmd = function()
+          require('bufdelete').bufdelete()
+        end,
+        desc = 'Close buffer',
+        keys = { 'n', '<leader>bd' },
+      },
+      {
+        cmd = function()
+          local bufs_to_delete = {}
+          -- Collect all buffers that need to be deleted
+          for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+            if
+              vim.fn.bufwinnr(bufnr) == -1
+              and vim.api.nvim_buf_get_option(bufnr, 'buflisted')
+            then
+              table.insert(bufs_to_delete, bufnr)
+            end
+          end
+          -- Delete the collected buffers
+          for _, bufnr in ipairs(bufs_to_delete) do
+            vim.cmd('bdelete! ' .. bufnr)
+          end
+        end,
+        desc = 'Close all buffers that are not in the current window',
       },
     })
     commander.setup({
