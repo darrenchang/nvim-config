@@ -10,7 +10,6 @@ return {
         desc = 'Open Telescope commander menu',
         cmd = '<CMD>Telescope commander<CR>',
         keys = {
-          { 'n', '<leader>f' },
           { 'n', '<C-p>' },
         },
         show = false,
