@@ -19,10 +19,6 @@ return {
         cmd = '<CMD>wa<CR><CMD>silent !./restart_api.sh<CR>',
       },
       {
-        desc = 'Copy the nvim buffer to tmux buffer',
-        cmd = "<CMD>'<,'>w !tmux load-buffer -<CR>",
-      },
-      {
         cmd = function()
           local bufnr = vim.api.nvim_get_current_buf()
           vim.cmd('bdelete! ' .. bufnr)
