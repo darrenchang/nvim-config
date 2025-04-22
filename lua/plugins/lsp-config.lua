@@ -24,7 +24,7 @@ return {
           'ts_ls',
           'marksman',
           'pylsp',
-          'volar@1.8.27',
+          'volar',
         },
       })
     end,
