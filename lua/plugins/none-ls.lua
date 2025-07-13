@@ -43,7 +43,6 @@ return {
           'black',
           'isort',
           'ruff',
-          'ruff_lsp',
           'prettier',
           'ts_ls',
         },
