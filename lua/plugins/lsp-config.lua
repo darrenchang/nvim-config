@@ -67,7 +67,7 @@ return {
       local function on_new_config(new_config, new_root_dir)
         local function get_typescript_server_path(root_dir)
           local project_root =
-              lspconfig_util.find_node_modules_ancestor(root_dir)
+            lspconfig_util.find_node_modules_ancestor(root_dir)
           return project_root
               and (lspconfig_util.path.join(
                 project_root,
@@ -75,16 +75,16 @@ return {
                 'typescript',
                 'lib'
               ))
-              or ''
+            or ''
         end
 
         if
-            new_config.init_options
-            and new_config.init_options.typescript
-            and new_config.init_options.typescript.tsdk == ''
+          new_config.init_options
+          and new_config.init_options.typescript
+          and new_config.init_options.typescript.tsdk == ''
         then
           new_config.init_options.typescript.tsdk =
-              get_typescript_server_path(new_root_dir)
+            get_typescript_server_path(new_root_dir)
         end
       end
 
@@ -150,14 +150,76 @@ return {
         },
       })
       vim.lsp.enable('vtsls')
+      vim.lsp.config('vtsls', {
+        filetypes = {
+          'typescript',
+          'javascript',
+          'javascriptreact',
+          'typescriptreact',
+          'vue',
+        },
+        settings = {
+          vtsls = {
+            tsserver = {
+              globalPlugins = {
+                {
+                  name = '@vue/typescript-plugin',
+                  languages = { 'vue' },
+                  configNamespace = 'typescript',
+                  location = vim.fn.stdpath('data')
+                    .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+                },
+              },
+            },
+          },
+        },
+      })
+
+      vim.lsp.config('vue_ls', {
+        on_init = function(client)
+          client.handlers['tsserver/request'] = function(_, result, context)
+            local clients =
+              vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+            if #clients == 0 then
+              vim.notify(
+                'Could not found `vtsls` lsp client, vue_lsp would not work without it.',
+                vim.log.levels.ERROR
+              )
+              return
+            end
+            local ts_client = clients[1]
+            local param = unpack(result)
+            local id, command, payload = unpack(param)
+            ts_client:exec_cmd({
+              title = 'vue_request_forward',
+              command = 'typescript.tsserverRequest',
+              arguments = {
+                command,
+                payload,
+              },
+            }, { bufnr = context.bufnr }, function(_, r)
+              local response_data = { { id, r.body } }
+              ---@diagnostic disable-next-line: param-type-mismatch
+              client:notify('tsserver/response', response_data)
+            end)
+          end
+        end,
+      })
       vim.lsp.enable('vue_ls')
       vim.lsp.config('vue_ls', {
         cmd = volar_cmd,
-        root_dir = volar_root_dir,
+        -- root_dir = volar_root_dir,
         on_new_config = on_new_config,
         settings = {
-          ['volar'] = {
+          ['vue_ls'] = {
             enableTakeOverMode = true,
+          },
+          filetypes = {
+            'typescript',
+            'javascript',
+            'javascriptreact',
+            'typescriptreact',
+            'vue',
           },
         },
         filetypes = {
@@ -170,7 +232,7 @@ return {
         init_options = {
           typescript = {
             tsdk = getHomeDirectory()
-                .. '/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib',
+              .. '/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib',
           },
           languageFeatures = {
             implementation = true, -- new in @volar/vue-language-server v0.33
