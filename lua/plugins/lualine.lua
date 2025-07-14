@@ -27,7 +27,7 @@ end
 -- Returns a string with a list of attached LSP clients, including
 -- formatters and linters from null-ls, nvim-lint and formatter.nvim
 local function get_attached_clients()
-  local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+  local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
   if #buf_clients == 0 then
     return 'LSP Inactive'
   end
