@@ -43,15 +43,26 @@ return {
       },
       {
         cmd = function()
-          vim.lsp.buf.hover()
+          vim.diagnostic.open_float()
         end,
-        desc = 'See buf hover',
-        keys = { 'n', 'K' },
+        desc = 'View diagnostic for the current line',
+        keys = { { 'n', 'v' }, '<leader>cv' },
+      },
+      {
+        cmd = function()
+          vim.diagnostic.config({ virtual_text = true })
+        end,
+        desc = 'Enable diagnostic virtual text',
+      },
+      {
+        cmd = function()
+          vim.diagnostic.config({ virtual_text = false })
+        end,
+        desc = 'Disable diagnostic virtual text',
       },
     },
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local lspconfig = require('lspconfig')
       local lspconfig_util = require('lspconfig.util')
       local function on_new_config(new_config, new_root_dir)
         local function get_typescript_server_path(root_dir)
@@ -202,10 +213,7 @@ return {
         },
       })
       -- set up lsp options
-      vim.lsp.handlers['textDocument/publishDiagnostics'] =
-          vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-            update_in_insert = true,
-          })
+      vim.diagnostic.config({ virtual_text = true })
     end,
   },
 }
