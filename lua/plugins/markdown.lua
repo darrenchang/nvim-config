@@ -70,7 +70,7 @@ return {
         },
         latex = {
           -- Whether LaTeX should be rendered, mainly used for health check
-          enabled = true,
+          enabled = false,
           -- Executable used to convert latex formula to rendered unicode
           converter = 'latex2text',
           -- Highlight for LaTeX blocks
@@ -252,7 +252,6 @@ return {
           -- Determines how icons fill the available space:
           --  inline:  underlying text is concealed resulting in a left aligned icon
           --  overlay: result is left padded with spaces to hide any additional text
-          position = 'inline',
           unchecked = {
             -- Replaces '[ ]' of 'task_list_marker_unchecked'
             icon = '󰄱 ',

@@ -4,7 +4,7 @@ My personal nvim configuration
 
 # Requirements
 
-- nvim >= 0.10.1
+- nvim >= 0.11.3
 - npm
 - lazygit >= 0.44.1
 - python virtualenv

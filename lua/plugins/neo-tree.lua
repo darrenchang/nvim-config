@@ -6,7 +6,7 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
-      '3rd/image.nvim',
+      -- '3rd/image.nvim',
     },
     commander = {
       {
@@ -17,7 +17,7 @@ return {
     },
     config = function()
       require('neo-tree').setup({
-        popup_border_style = "rounded",
+        popup_border_style = 'rounded',
         filesystem = {
           enable_refresh_on_write = true,
           follow_current_file = {
@@ -37,7 +37,7 @@ return {
           },
         },
         window = {
-          position = "float",
+          position = 'float',
         },
         event_handlers = {
           {

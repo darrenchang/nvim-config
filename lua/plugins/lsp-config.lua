@@ -24,7 +24,8 @@ return {
           'ts_ls',
           'marksman',
           'pylsp',
-          'volar',
+          'vue_ls',
+          'vtsls',
         },
       })
     end,
@@ -42,15 +43,26 @@ return {
       },
       {
         cmd = function()
-          vim.lsp.buf.hover()
+          vim.diagnostic.open_float()
         end,
-        desc = 'See buf hover',
-        keys = { 'n', 'K' },
+        desc = 'View diagnostic for the current line',
+        keys = { { 'n', 'v' }, '<leader>cv' },
+      },
+      {
+        cmd = function()
+          vim.diagnostic.config({ virtual_text = true })
+        end,
+        desc = 'Enable diagnostic virtual text',
+      },
+      {
+        cmd = function()
+          vim.diagnostic.config({ virtual_text = false })
+        end,
+        desc = 'Disable diagnostic virtual text',
       },
     },
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local lspconfig = require('lspconfig')
       local lspconfig_util = require('lspconfig.util')
       local function on_new_config(new_config, new_root_dir)
         local function get_typescript_server_path(root_dir)
@@ -108,23 +120,27 @@ return {
         ),
       }
       -- set up lsp servers
-      lspconfig.lua_ls.setup({
+      vim.lsp.enable('lua_ls')
+      vim.lsp.config('lua_ls', {
         capabilities = capabilities,
         handlers = handlers,
       })
-      lspconfig.ts_ls.setup({
+      vim.lsp.enable('ts_ls')
+      vim.lsp.config('ts_ls', {
         capabilities = capabilities,
         handlers = handlers,
       })
-      lspconfig.marksman.setup({
+      vim.lsp.enable('marksman')
+      vim.lsp.config('marksman', {
         capabilities = capabilities,
         handlers = handlers,
       })
-      lspconfig.pylsp.setup({
+      vim.lsp.enable('pylsp')
+      vim.lsp.config('pylsp', {
         capabilities = capabilities,
         handlers = handlers,
         settings = {
-          pylsp = {
+          ['pylsp'] = {
             plugins = {
               pycodestyle = {
                 maxLineLength = 119,
@@ -133,11 +149,86 @@ return {
           },
         },
       })
-      lspconfig.volar.setup({
+      vim.lsp.enable('vtsls')
+      vim.lsp.config('vtsls', {
+        filetypes = {
+          'typescript',
+          'javascript',
+          'javascriptreact',
+          'typescriptreact',
+          'vue',
+        },
+        settings = {
+          vtsls = {
+            tsserver = {
+              globalPlugins = {
+                {
+                  name = '@vue/typescript-plugin',
+                  languages = { 'vue' },
+                  configNamespace = 'typescript',
+                  location = vim.fn.stdpath('data')
+                    .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+                },
+              },
+            },
+          },
+        },
+      })
+
+      vim.lsp.config('vue_ls', {
+        on_init = function(client)
+          client.handlers['tsserver/request'] = function(_, result, context)
+            local clients =
+              vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+            if #clients == 0 then
+              vim.notify(
+                'Could not found `vtsls` lsp client, vue_lsp would not work without it.',
+                vim.log.levels.ERROR
+              )
+              return
+            end
+            local ts_client = clients[1]
+            local param = unpack(result)
+            local id, command, payload = unpack(param)
+            ts_client:exec_cmd({
+              title = 'vue_request_forward',
+              command = 'typescript.tsserverRequest',
+              arguments = {
+                command,
+                payload,
+              },
+            }, { bufnr = context.bufnr }, function(_, r)
+              local response_data = { { id, r.body } }
+              ---@diagnostic disable-next-line: param-type-mismatch
+              client:notify('tsserver/response', response_data)
+            end)
+          end
+        end,
+      })
+      vim.lsp.enable('vue_ls')
+      vim.lsp.config('vue_ls', {
         cmd = volar_cmd,
-        root_dir = volar_root_dir,
+        -- root_dir = volar_root_dir,
         on_new_config = on_new_config,
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+        settings = {
+          ['vue_ls'] = {
+            enableTakeOverMode = true,
+          },
+          filetypes = {
+            'typescript',
+            'javascript',
+            'javascriptreact',
+            'typescriptreact',
+            'vue',
+          },
+        },
+        filetypes = {
+          'typescript',
+          'javascript',
+          'javascriptreact',
+          'typescriptreact',
+          'vue',
+        },
         init_options = {
           typescript = {
             tsdk = getHomeDirectory()
@@ -184,10 +275,7 @@ return {
         },
       })
       -- set up lsp options
-      vim.lsp.handlers['textDocument/publishDiagnostics'] =
-        vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-          update_in_insert = true,
-        })
+      vim.diagnostic.config({ virtual_text = true })
     end,
   },
 }
