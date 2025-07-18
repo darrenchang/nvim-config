@@ -24,7 +24,6 @@ return {
           'ts_ls',
           'marksman',
           'pylsp',
-          'vue_ls',
           'vtsls',
         },
       })
