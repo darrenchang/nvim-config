@@ -25,6 +25,8 @@ return {
           'marksman',
           'pylsp',
           'vtsls',
+          'vue_ls',
+          'vuels',
         },
       })
     end,
@@ -173,7 +175,7 @@ return {
           },
         },
       })
-
+      vim.lsp.enable('vue_ls')
       vim.lsp.config('vue_ls', {
         on_init = function(client)
           client.handlers['tsserver/request'] = function(_, result, context)
@@ -203,75 +205,6 @@ return {
             end)
           end
         end,
-      })
-      vim.lsp.enable('vue_ls')
-      vim.lsp.config('vue_ls', {
-        cmd = volar_cmd,
-        -- root_dir = volar_root_dir,
-        on_new_config = on_new_config,
-        settings = {
-          ['vue_ls'] = {
-            enableTakeOverMode = true,
-          },
-          filetypes = {
-            'typescript',
-            'javascript',
-            'javascriptreact',
-            'typescriptreact',
-            'vue',
-          },
-        },
-        filetypes = {
-          'typescript',
-          'javascript',
-          'javascriptreact',
-          'typescriptreact',
-          'vue',
-        },
-        init_options = {
-          typescript = {
-            tsdk = getHomeDirectory()
-              .. '/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib',
-          },
-          languageFeatures = {
-            implementation = true, -- new in @volar/vue-language-server v0.33
-            documentHighlight = true,
-            documentLink = true,
-            codeLens = { showReferencesNotification = true },
-            -- not supported - https://github.com/neovim/neovim/pull/15723
-            semanticTokens = true,
-            diagnostics = true,
-            schemaRequestService = true,
-            -- not supported - https://github.com/neovim/neovim/pull/15723
-            references = true,
-            definition = true,
-            typeDefinition = true,
-            callHierarchy = true,
-            hover = true,
-            rename = true,
-            renameFileRefactoring = true,
-            signatureHelp = true,
-            codeAction = true,
-            workspaceSymbol = true,
-            completion = {
-              defaultTagNameCase = 'both',
-              defaultAttrNameCase = 'kebabCase',
-              getDocumentNameCasesRequest = true,
-              getDocumentSelectionRequest = true,
-            },
-          },
-          documentFeatures = {
-            selectionRange = true,
-            foldingRange = true,
-            linkedEditingRange = true,
-            documentSymbol = true,
-            -- not supported - https://github.com/neovim/neovim/pull/13654
-            documentColor = true,
-            documentFormatting = {
-              defaultPrintWidth = 100,
-            },
-          },
-        },
       })
       -- set up lsp options
       vim.diagnostic.config({ virtual_text = true })
