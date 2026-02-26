@@ -8,23 +8,23 @@ return {
     },
     commander = {
       {
-        cmd = "<CMD>Telescope find_files<CR>",
-        desc = "Find files",
+        cmd = '<CMD>Telescope find_files<CR>',
+        desc = 'Find files',
         keys = { 'n', '<leader>ff' },
       },
       {
-        cmd = "<CMD>Telescope live_grep<CR>",
-        desc = "Live grep",
+        cmd = '<CMD>Telescope live_grep<CR>',
+        desc = 'Live grep',
         keys = { 'n', '<leader>fg' },
       },
       {
-        cmd = "<CMD>Telescope buffers<CR>",
-        desc = "Find buffers",
+        cmd = '<CMD>Telescope buffers<CR>',
+        desc = 'Find buffers',
         keys = { 'n', '<leader>fb' },
       },
       {
-        cmd = "<CMD>Telescope help_tags<CR>",
-        desc = "Find available help tags",
+        cmd = '<CMD>Telescope help_tags<CR>',
+        desc = 'Find available help tags',
         keys = { 'n', '<leader>fh' },
       },
     },
@@ -36,6 +36,12 @@ return {
     'nvim-telescope/telescope-ui-select.nvim',
     config = function()
       require('telescope').setup({
+        defaults = {
+          preview = {
+            treesitter = false,
+          },
+        },
+
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown({}),
@@ -44,15 +50,15 @@ return {
         pickers = {
           find_files = {
             hidden = true,
-            file_ignore_patterns = { 'node_modules', '.git', 'dist' }
+            file_ignore_patterns = { 'node_modules', '.git', 'dist' },
           },
           grep_string = {
-            additional_args = {"--hidden"},
-            file_ignore_patterns = { 'node_modules', '.git', 'dist' }
+            additional_args = { '--hidden' },
+            file_ignore_patterns = { 'node_modules', '.git', 'dist' },
           },
           live_grep = {
-            additional_args = {"--hidden"},
-            file_ignore_patterns = { 'node_modules', '.git', 'dist' }
+            additional_args = { '--hidden' },
+            file_ignore_patterns = { 'node_modules', '.git', 'dist' },
           },
         },
       })
