@@ -35,17 +35,41 @@ return {
       'nvimtools/none-ls.nvim',
     },
     config = function()
+      local registry = require('mason-registry')
+      local platform = require('mason-core.platform')
+
+      local function is_platform_supported(pkg_name)
+        local ok, pkg = pcall(registry.get_package, pkg_name)
+        if not ok then return false end
+        local spec = pkg.spec
+        if not (spec and spec.source and spec.source.asset) then return true end
+        local asset = spec.source.asset
+        if type(asset) ~= 'table' or not (asset[1] and asset[1].target) then
+          return true
+        end
+        for _, a in ipairs(asset) do
+          local targets = type(a.target) == 'string' and { a.target } or a.target
+          if type(targets) == 'table' then
+            for _, t in ipairs(targets) do
+              if platform.is[t] then return true end
+            end
+          end
+        end
+        return false
+      end
+
+      local wanted = {
+        'stylua',
+        'selene',
+        'cbfmt',
+        'black',
+        'isort',
+        'ruff',
+        'prettier',
+      }
+
       require('mason-null-ls').setup({
-        ensure_installed = {
-          'stylua',
-          'selene',
-          'cbfmt',
-          'black',
-          'isort',
-          'ruff',
-          'prettier',
-          'ts_ls',
-        },
+        ensure_installed = vim.tbl_filter(is_platform_supported, wanted),
       })
     end,
   },
