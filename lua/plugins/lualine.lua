@@ -133,9 +133,11 @@ return {
         white = '#f8f8f2',
         black = '#282a36',
         lualine_bg = '#1E1E2D',
+        lualine_inactive_bg = '#454758',
       }
-      local cap_color_active = { fg = colors.purple, bg = colors.red }
-      local cap_color_inactive = { fg = colors.purple, bg = colors.red }
+      local cap_color_active = { fg = colors.purple, bg = colors.lualine_bg }
+      local cap_color_inactive =
+        { fg = colors.lightgray, bg = colors.lualine_bg }
       local dracula_theme = {
         normal = {
           a = { bg = colors.purple, fg = colors.black, gui = 'bold' },
@@ -163,8 +165,8 @@ return {
           c = { bg = colors.gray, fg = colors.white },
         },
         inactive = {
-          a = { bg = colors.gray, fg = colors.white, gui = 'bold' },
-          b = { bg = colors.lightgray, fg = colors.white },
+          a = { bg = colors.lightgray, fg = colors.white, gui = 'bold' },
+          b = { bg = colors.gray, fg = colors.white },
           c = { bg = colors.gray, fg = colors.white },
         },
       }
@@ -195,8 +197,12 @@ return {
               padding = 0,
               separator = '',
             },
-            { 'filename' },
-            { 'macro-recording', fmt = show_macro_recording },
+            { 'filename', padding = 0 },
+            {
+              'macro-recording',
+              padding = { left = 1 },
+              fmt = show_macro_recording,
+            },
           },
           lualine_b = {
             {
@@ -208,20 +214,27 @@ return {
               update_in_insert = true,
             },
           },
-          lualine_c = {
-            {},
-          },
+          lualine_c = {},
           lualine_x = {
             'encoding',
             'fileformat',
             'filetype',
             attached_clients,
-            'progress',
           },
-          lualine_y = {},
+          lualine_y = {
+            {
+              'progress',
+              padding = { left = 0, right = 1 },
+              separator = '',
+            },
+          },
           lualine_z = {
-            { 'location', separator = { left = vim.fn.nr2char(0xE0B6) } },
-            { 'searchcount' },
+            {
+              'location',
+              separator = { left = vim.fn.nr2char(0xE0B6) },
+              padding = 0,
+            },
+            { 'searchcount', padding = { left = 1, right = 0 } },
             {
               function()
                 return vim.fn.nr2char(0xE0B4)
@@ -244,7 +257,10 @@ return {
             },
             {
               'filename',
+              padding = 0,
             },
+          },
+          lualine_b = {
             {
               'diff',
               source = diff_source,
@@ -254,24 +270,25 @@ return {
               update_in_insert = true,
             },
           },
-          lualine_b = {},
           lualine_c = {},
           lualine_x = {},
-          lualine_y = {},
-          lualine_z = {
+          lualine_y = {
             {
               'progress',
-              separator = {
-                left = vim.fn.nr2char(0xE0B6),
-                right = vim.fn.nr2char(0xE0B4),
-              },
+              padding = { left = 0, right = 1 },
+              separator = '',
             },
-            { 'location' },
+          },
+          lualine_z = {
+            {
+              'location',
+              padding = 0,
+            },
             {
               function()
                 return vim.fn.nr2char(0xE0B4)
               end,
-              color = cap_color_active,
+              color = cap_color_inactive,
               padding = 0,
               separator = '',
             },
