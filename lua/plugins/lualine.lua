@@ -5,7 +5,7 @@ local function diff_source()
     return {
       added = gitsigns.added,
       modified = gitsigns.changed,
-      removed = gitsigns.removed
+      removed = gitsigns.removed,
     }
   end
 end
@@ -122,9 +122,57 @@ return {
         get_attached_clients,
         color = {},
       }
+      local colors = {
+        gray = '#44475a',
+        lightgray = '#5f6a8e',
+        orange = '#ffb86c',
+        purple = '#bd93f9',
+        red = '#ff5555',
+        yellow = '#f1fa8c',
+        green = '#50fa7b',
+        white = '#f8f8f2',
+        black = '#282a36',
+      }
+      local dracula_theme = {
+        normal = {
+          a = { bg = colors.purple, fg = colors.black, gui = 'bold' },
+          b = { bg = colors.lightgray, fg = colors.white },
+          c = { bg = colors.gray, fg = colors.white },
+        },
+        insert = {
+          a = { bg = colors.green, fg = colors.black, gui = 'bold' },
+          b = { bg = colors.lightgray, fg = colors.white },
+          c = { bg = colors.gray, fg = colors.white },
+        },
+        visual = {
+          a = { bg = colors.yellow, fg = colors.black, gui = 'bold' },
+          b = { bg = colors.lightgray, fg = colors.white },
+          c = { bg = colors.gray, fg = colors.white },
+        },
+        replace = {
+          a = { bg = colors.red, fg = colors.black, gui = 'bold' },
+          b = { bg = colors.lightgray, fg = colors.white },
+          c = { bg = colors.gray, fg = colors.white },
+        },
+        command = {
+          a = { bg = colors.orange, fg = colors.black, gui = 'bold' },
+          b = { bg = colors.lightgray, fg = colors.white },
+          c = { bg = colors.gray, fg = colors.white },
+        },
+        inactive = {
+          a = { bg = colors.gray, fg = colors.white, gui = 'bold' },
+          b = { bg = colors.lightgray, fg = colors.white },
+          c = { bg = colors.gray, fg = colors.white },
+        },
+      }
       require('lualine').setup({
         options = {
-          theme = 'dracula',
+          theme = dracula_theme,
+          section_separators = {
+            left = vim.fn.nr2char(0xE0B4),
+            right = vim.fn.nr2char(0xE0B6),
+          },
+          component_separators = '',
           globalstatus = false,
           disabled_filetypes = { 'neo-tree' },
           ignore_focus = { 'neo-tree', 'lazy' },
@@ -138,6 +186,7 @@ return {
           lualine_a = {
             {
               window,
+              separator = { left = vim.fn.nr2char(0xE0B6) },
             },
             {
               'filename',
@@ -149,7 +198,8 @@ return {
           },
           lualine_b = {
             {
-              'diff', source = diff_source,
+              'diff',
+              source = diff_source,
             },
             {
               'diagnostics',
@@ -168,20 +218,28 @@ return {
           },
           lualine_y = {},
           lualine_z = {
-            'location',
-            'searchcount',
+            {
+              'location',
+              separator = {
+                left = vim.fn.nr2char(0xE0B6),
+                right = vim.fn.nr2char(0xE0B4),
+              },
+            },
+            { 'searchcount', separator = { right = vim.fn.nr2char(0xE0B4) } },
           },
         },
         inactive_sections = {
           lualine_a = {
             {
               window,
+              separator = { left = vim.fn.nr2char(0xE0B6) },
             },
             {
               'filename',
             },
             {
-              'diff', source = diff_source,
+              'diff',
+              source = diff_source,
             },
             {
               'diagnostics',
@@ -193,8 +251,14 @@ return {
           lualine_x = {},
           lualine_y = {},
           lualine_z = {
-            'progress',
-            'location',
+            {
+              'progress',
+              separator = {
+                left = vim.fn.nr2char(0xE0B6),
+                right = vim.fn.nr2char(0xE0B4),
+              },
+            },
+            { 'location', separator = { right = vim.fn.nr2char(0xE0B4) } },
           },
         },
       })
