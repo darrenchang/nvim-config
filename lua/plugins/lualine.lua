@@ -9,10 +9,6 @@ local function diff_source()
     }
   end
 end
--- Get the window number
-local function window()
-  return vim.api.nvim_win_get_number(0)
-end
 
 -- Format function for displaying macro recording status
 local function show_macro_recording()
@@ -20,7 +16,7 @@ local function show_macro_recording()
   if recording_register == '' then
     return ''
   else
-    return 'Recording @' .. recording_register
+    return ' @' .. recording_register
   end
 end
 
@@ -135,7 +131,21 @@ return {
         lualine_bg = '#1E1E2D',
         lualine_inactive_bg = '#454758',
       }
-      local cap_color_active = { fg = colors.purple, bg = colors.lualine_bg }
+      local mode_fg = {
+        n = colors.purple,
+        i = colors.green,
+        v = colors.yellow,
+        V = colors.yellow,
+        ['\22'] = colors.yellow, -- visual block
+        R = colors.red,
+        c = colors.orange,
+      }
+      local function cap_color_active()
+        return {
+          fg = mode_fg[vim.fn.mode()] or colors.purple,
+          bg = colors.lualine_bg,
+        }
+      end
       local cap_color_inactive =
         { fg = colors.lightgray, bg = colors.lualine_bg }
       local dracula_theme = {
