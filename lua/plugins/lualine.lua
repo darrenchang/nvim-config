@@ -132,7 +132,10 @@ return {
         green = '#50fa7b',
         white = '#f8f8f2',
         black = '#282a36',
+        lualine_bg = '#1E1E2D',
       }
+      local cap_color_active = { fg = colors.purple, bg = colors.red }
+      local cap_color_inactive = { fg = colors.purple, bg = colors.red }
       local dracula_theme = {
         normal = {
           a = { bg = colors.purple, fg = colors.black, gui = 'bold' },
@@ -185,16 +188,15 @@ return {
         sections = {
           lualine_a = {
             {
-              window,
-              separator = { left = vim.fn.nr2char(0xE0B6) },
+              function()
+                return vim.fn.nr2char(0xE0B6)
+              end,
+              color = cap_color_active,
+              padding = 0,
+              separator = '',
             },
-            {
-              'filename',
-            },
-            {
-              'macro-recording',
-              fmt = show_macro_recording,
-            },
+            { 'filename' },
+            { 'macro-recording', fmt = show_macro_recording },
           },
           lualine_b = {
             {
@@ -218,21 +220,27 @@ return {
           },
           lualine_y = {},
           lualine_z = {
+            { 'location', separator = { left = vim.fn.nr2char(0xE0B6) } },
+            { 'searchcount' },
             {
-              'location',
-              separator = {
-                left = vim.fn.nr2char(0xE0B6),
-                right = vim.fn.nr2char(0xE0B4),
-              },
+              function()
+                return vim.fn.nr2char(0xE0B4)
+              end,
+              color = cap_color_active,
+              padding = 0,
+              separator = '',
             },
-            { 'searchcount', separator = { right = vim.fn.nr2char(0xE0B4) } },
           },
         },
         inactive_sections = {
           lualine_a = {
             {
-              window,
-              separator = { left = vim.fn.nr2char(0xE0B6) },
+              function()
+                return vim.fn.nr2char(0xE0B6)
+              end,
+              color = cap_color_inactive,
+              padding = 0,
+              separator = '',
             },
             {
               'filename',
@@ -258,7 +266,15 @@ return {
                 right = vim.fn.nr2char(0xE0B4),
               },
             },
-            { 'location', separator = { right = vim.fn.nr2char(0xE0B4) } },
+            { 'location' },
+            {
+              function()
+                return vim.fn.nr2char(0xE0B4)
+              end,
+              color = cap_color_active,
+              padding = 0,
+              separator = '',
+            },
           },
         },
       })
