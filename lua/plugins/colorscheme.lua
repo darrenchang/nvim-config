@@ -16,6 +16,13 @@ return {
           transparent = false, -- enable transparent floating windows
           solid = false, -- use solid styling for floating windows, see |winborder|
         },
+        custom_highlights = function(colors)
+          return {
+            WinSeparator = { fg = colors.surface1, bg = colors.base },
+            StatusLine   = { bg = colors.base },
+            StatusLineNC = { bg = colors.base },
+          }
+        end,
       })
       vim.cmd.colorscheme('catppuccin-nvim')
     end,
